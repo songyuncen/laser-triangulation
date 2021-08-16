@@ -7,6 +7,5 @@ target_include_directories(calibrate_camera
 target_link_libraries(calibrate_camera
   PRIVATE
     ${OpenCV_LIBS}
-    OpenMP::OpenMP_CXX
 )
 

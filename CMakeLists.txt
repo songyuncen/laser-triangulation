@@ -10,9 +10,7 @@ if(IS_MULTI_CONFIG_GENERATOR)
   set(CMAKE_CONFIGURATION_TYPES "Debug;Release;RelWithDebInfo" CACHE STRING "" FORCE)
 endif()
 
-
 find_package(OpenCV REQUIRED)
-find_package(OpenMP REQUIRED)
 
 add_subdirectory(src)
 
