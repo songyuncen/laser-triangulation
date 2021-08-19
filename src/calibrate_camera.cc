@@ -1,8 +1,11 @@
-#include <opencv2/opencv.hpp>
-#include <opencv2/core/utils/filesystem.hpp>
 #include <iostream>
 #include <sstream>
 #include <vector>
+
+#include <opencv2/opencv.hpp>
+#include <opencv2/core/utils/filesystem.hpp>
+
+#include "laser_triangulation.h"
 
 namespace cvfs = cv::utils::fs;
 
@@ -59,20 +62,6 @@ bool VerifyImageFolder(const char *folder) {
   }
 
   return true;
-}
-
-void GenerateObjectPointsList(std::vector<std::vector<cv::Point3f>> &points, double gap, const cv::Size &size, int n) {
-  std::vector<cv::Point3f> p;
-  for (int i = 0; i < size.height; ++i) {
-    for (int j = 0; j < size.width; ++j) {
-      p.push_back({ j * gap, i * gap, 0.0 });
-    }
-  }
-
-  points.clear();
-  for (int i = 0; i < n; ++i) {
-    points.push_back(p);
-  }
 }
 
 void CalibrateImage(const char *folder) {

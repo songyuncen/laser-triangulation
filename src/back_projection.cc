@@ -3,7 +3,7 @@
 // plane[0] * x + plane[1] * y + plane[2] * z + plane[3] = 0
 static void GetObjectPlaneInCameraCoordinate(cv::Mat &rvec, cv::Mat &tvec, cv::Vec4d &plane);
 
-void BackProjection(std::vector<cv::Point> &im_pts,
+void BackProjection(const std::vector<cv::Point2f> &im_pts,
                     cv::Mat &intrinsic, cv::Mat &distortion, cv::Mat &rvec, cv::Mat &tvec,
                     std::vector<cv::Point3f> &obj_pts) {
   std::vector<cv::Point2f> src, dst;
@@ -45,5 +45,19 @@ void GetObjectPlaneInCameraCoordinate(cv::Mat &rvec, cv::Mat &tvec, cv::Vec4d &p
   plane[3] = -(plane[0] * origin.at<double>(0, 0) +
                plane[1] * origin.at<double>(1, 0) +
                plane[2] * origin.at<double>(2, 0));
+}
+
+void GenerateObjectPointsList(std::vector<std::vector<cv::Point3f>> &points, double gap, const cv::Size &size, int n) {
+  std::vector<cv::Point3f> p;
+  for (int i = 0; i < size.height; ++i) {
+    for (int j = 0; j < size.width; ++j) {
+      p.push_back({ j * gap, i * gap, 0.0 });
+    }
+  }
+
+  points.clear();
+  for (int i = 0; i < n; ++i) {
+    points.push_back(p);
+  }
 }
 

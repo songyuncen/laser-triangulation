@@ -83,6 +83,8 @@ void ExtractAndBackProjectionLaserPoints(cv::Mat &image,
                                          std::vector<cv::Point3f> &points) {
   std::vector<cv::Point> img_pts;
   ExtractLaserLine(image, kThreshold, img_pts);
-  BackProjection(img_pts, intrinsic, distortin, rvec, tvec, points);
+  std::vector<cv::Point2f> img_pts_2f;
+  cv::Mat(img_pts).copyTo(img_pts_2f);
+  BackProjection(img_pts_2f, intrinsic, distortin, rvec, tvec, points);
 }
 

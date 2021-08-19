@@ -27,6 +27,7 @@ target_include_directories(calibrate_camera
 target_link_libraries(calibrate_camera
   PRIVATE
     ${OpenCV_LIBS}
+    utils
 )
 
 # extract
@@ -48,6 +49,19 @@ target_include_directories(calibrate_laser
   ${OpenCV_INCLUDE_DIRS}
 )
 target_link_libraries(calibrate_laser
+  PRIVATE
+    ${OpenCV_LIBS}
+    utils
+)
+
+# calibrate movement
+add_executable(calibrate_movement calibrate_movement.cc)
+target_include_directories(calibrate_movement
+  PRIVATE
+  ${OpenCV_INCLUDE_DIRS}
+)
+
+target_link_libraries(calibrate_movement
   PRIVATE
     ${OpenCV_LIBS}
     utils
