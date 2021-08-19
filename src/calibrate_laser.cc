@@ -52,6 +52,10 @@ int main(int argc, char *argv[]) {
 
 
   // 2. fit 3d plane
+  cv::Vec4f plane;
+  Fit3dPlane(points, plane);
+  cv::FileStorage laser("laser.yml", cv::FileStorage::WRITE);
+  laser << "laser" << plane;
 }
 
 bool VerifyImageFolder(const char *folder) {
@@ -81,5 +85,4 @@ void ExtractAndBackProjectionLaserPoints(cv::Mat &image,
   ExtractLaserLine(image, kThreshold, img_pts);
   BackProjection(img_pts, intrinsic, distortin, rvec, tvec, points);
 }
-
 

@@ -4,6 +4,7 @@ add_library(utils STATIC
   back_projection.cc
   laser_triangulation.h
   write_ply.cc 
+  fit_3d_plane.cc
 )
 
 target_include_directories(utils
