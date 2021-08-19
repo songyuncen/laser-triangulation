@@ -1,7 +1,9 @@
 # utils
 add_library(utils STATIC 
   extract_laser_line.cc
+  back_projection.cc
   laser_triangulation.h
+  write_ply.cc 
 )
 
 target_include_directories(utils
@@ -33,6 +35,18 @@ target_include_directories(extract
   ${OpenCV_INCLUDE_DIRS}
 )
 target_link_libraries(extract
+  PRIVATE
+    ${OpenCV_LIBS}
+    utils
+)
+
+# calibrate laser
+add_executable(calibrate_laser calibrate_laser.cc)
+target_include_directories(calibrate_laser
+  PRIVATE
+  ${OpenCV_INCLUDE_DIRS}
+)
+target_link_libraries(calibrate_laser
   PRIVATE
     ${OpenCV_LIBS}
     utils

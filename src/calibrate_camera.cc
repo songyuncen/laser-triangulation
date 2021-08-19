@@ -109,7 +109,8 @@ void CalibrateImage(const char *folder) {
 
 
   cv::Mat camera_matrix;
-  cv::Mat distortion_coeff, rvecs, tvecs;
+  cv::Mat distortion_coeff;
+  std::vector<cv::Mat> rvecs, tvecs;
   try {
     double rms = cv::calibrateCamera(object_points, image_points, image_size,
                                      camera_matrix, distortion_coeff, rvecs, tvecs);
