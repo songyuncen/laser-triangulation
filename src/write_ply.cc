@@ -12,14 +12,11 @@ void WritePointCloudPly(const std::vector<cv::Point3f> &points, const cv::String
   ply << "property float x" << std::endl;
   ply << "property float y" << std::endl;
   ply << "property float z" << std::endl;
-  ply << "property uchar red" << std::endl;
-  ply << "property uchar green" << std::endl;
-  ply << "property uchar blue" << std::endl;
   ply << "end_header" << std::endl;
 
   ply << std::setprecision(4);
   for (size_t i = 0; i < points.size(); ++i) {
-    ply << points[i].x << " " << points[i].y << " " << points[i].z << " 255 0 0" << std::endl;
+    ply << points[i].x << " " << points[i].y << " " << points[i].z << std::endl;
   }
 
   ply.close();

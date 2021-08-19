@@ -5,6 +5,7 @@ add_library(utils STATIC
   laser_triangulation.h
   write_ply.cc 
   fit_3d_plane.cc
+  reconstruction.cc
 )
 
 target_include_directories(utils
@@ -62,6 +63,19 @@ target_include_directories(calibrate_movement
 )
 
 target_link_libraries(calibrate_movement
+  PRIVATE
+    ${OpenCV_LIBS}
+    utils
+)
+
+# reconstruction 
+add_executable(scan scan.cc)
+target_include_directories(scan
+  PRIVATE
+  ${OpenCV_INCLUDE_DIRS}
+)
+
+target_link_libraries(scan
   PRIVATE
     ${OpenCV_LIBS}
     utils

@@ -14,5 +14,9 @@ void GenerateObjectPointsList(std::vector<std::vector<cv::Point3f>> &points, dou
 void WritePointCloudPly(const std::vector<cv::Point3f> &points, const cv::String &file);
 void WritePlanePly(const std::vector<cv::Point3f> &plane, const cv::String &file);
 
+
+void Reconstruction(const char *folder, const char *prefx, const char *suffix, int num_width, int n, int threshold,
+                    cv::Mat &intrinsic, cv::Mat &distortion, cv::Vec4f &laser, cv::Vec3f &movement,
+                    std::vector<cv::Point3f> &pts);
 #endif // LASER_TRIANGULATION_H_
 
