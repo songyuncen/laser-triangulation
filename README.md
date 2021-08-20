@@ -37,3 +37,5 @@ Reconstructed connection rod displayed in Matlab.
 
 ![Reconstructed object display in Matlab](connection_rod_3d.png)
 
+# Issues
+- Laser line extraction method is not accurate and robust.
