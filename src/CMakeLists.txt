@@ -1,4 +1,4 @@
-# utils
+# utils library
 add_library(utils STATIC 
   extract_laser_line.cc
   back_projection.cc
@@ -19,65 +19,32 @@ target_link_libraries(utils
   ${OpenCV_LIBS}
 )
 
-# calibrate camera
-add_executable(calibrate_camera calibrate_camera.cc)
-target_include_directories(calibrate_camera
-  PRIVATE
-  ${OpenCV_INCLUDE_DIRS}
-)
-target_link_libraries(calibrate_camera
-  PRIVATE
-    ${OpenCV_LIBS}
-    utils
-)
+macro(add_dev_tool name folder sources)
+  add_executable(${name} ${sources})
+  target_include_directories(${name}
+    PRIVATE
+    ${OpenCV_INCLUDE_DIRS}
+  )
+  target_link_libraries(${name}
+    PRIVATE
+      ${OpenCV_LIBS}
+      utils
+  )
 
-# extract
-add_executable(extract extract.cc)
-target_include_directories(extract
-  PRIVATE
-  ${OpenCV_INCLUDE_DIRS}
-)
-target_link_libraries(extract
-  PRIVATE
-    ${OpenCV_LIBS}
-    utils
-)
+  if(NOT ${folder} STREQUAL "")
+    set_property(TARGET ${name} PROPERTY FOLDER "${folder}")
+  endif()
 
-# calibrate laser
-add_executable(calibrate_laser calibrate_laser.cc)
-target_include_directories(calibrate_laser
-  PRIVATE
-  ${OpenCV_INCLUDE_DIRS}
-)
-target_link_libraries(calibrate_laser
-  PRIVATE
-    ${OpenCV_LIBS}
-    utils
-)
+  if(MSVC)
+  set_target_properties(${name} 
+    PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
+  endif()
+endmacro()
 
-# calibrate movement
-add_executable(calibrate_movement calibrate_movement.cc)
-target_include_directories(calibrate_movement
-  PRIVATE
-  ${OpenCV_INCLUDE_DIRS}
-)
-
-target_link_libraries(calibrate_movement
-  PRIVATE
-    ${OpenCV_LIBS}
-    utils
-)
-
-# reconstruction 
-add_executable(scan scan.cc)
-target_include_directories(scan
-  PRIVATE
-  ${OpenCV_INCLUDE_DIRS}
-)
-
-target_link_libraries(scan
-  PRIVATE
-    ${OpenCV_LIBS}
-    utils
-)
+add_dev_tool(calibrate_camera Dev calibrate_camera.cc)
+add_dev_tool(extract Dev extract.cc)
+add_dev_tool(calibrate_laser Dev calibrate_laser.cc)
+add_dev_tool(calibrate_movement Dev calibrate_movement.cc)
+add_dev_tool(scan Dev scan.cc)
+add_dev_tool(demo "" calibrate_sheet_of_light_calplate.cc)
 

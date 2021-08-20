@@ -17,6 +17,7 @@ void WritePlanePly(const std::vector<cv::Point3f> &plane, const cv::String &file
 
 void Reconstruction(const char *folder, const char *prefx, const char *suffix, int num_width, int n, int threshold,
                     cv::Mat &intrinsic, cv::Mat &distortion, cv::Vec4f &laser, cv::Vec3f &movement,
-                    std::vector<cv::Point3f> &pts);
+                    std::vector<cv::Point3f> &pts,
+                    bool show = false, int wait_ms = 40);
 #endif // LASER_TRIANGULATION_H_
 

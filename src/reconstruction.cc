@@ -4,9 +4,11 @@
 
 namespace cvfs = cv::utils::fs;
 
+static void ShowLinePoints(cv::Mat &image, std::vector<cv::Point> &pts, int wait);
+
 void Reconstruction(const char *folder, const char *prefix, const char *suffix, int num_width, int n, int threshold,
                     cv::Mat &intrinsic, cv::Mat &distortion, cv::Vec4f &laser, cv::Vec3f &movement,
-                    std::vector<cv::Point3f> &pts) {
+                    std::vector<cv::Point3f> &pts, bool show, int wait) {
   pts.clear();
 
   for (int i = 0; i < n; ++i) {
@@ -16,6 +18,10 @@ void Reconstruction(const char *folder, const char *prefix, const char *suffix, 
     cv::Mat im = cv::imread(cvfs::join(folder, file_name), cv::IMREAD_GRAYSCALE);
     std::vector<cv::Point> img_pts;
     ExtractLaserLine(im, threshold, img_pts);
+
+    if (show) {
+      ShowLinePoints(im, img_pts, wait);
+    }
 
     std::vector<cv::Point2f> src, dst;
     cv::Mat(img_pts).copyTo(src);
@@ -28,5 +34,16 @@ void Reconstruction(const char *folder, const char *prefix, const char *suffix, 
       pts.push_back(cv::Point3f(p[0], p[1], p[2]));
     }
   }
+
+}
+
+void ShowLinePoints(cv::Mat &image, std::vector<cv::Point> &pts, int wait) {
+  cv::Mat frame;
+  cv::cvtColor(image, frame, cv::COLOR_GRAY2BGR);
+  for (size_t i = 0; i < pts.size(); ++i) {
+    cv::circle(frame, pts[i], 1, { 0, 0, 255 });
+  }
+  cv::imshow("Demo", frame);
+  cv::waitKey(wait);
 }
 
